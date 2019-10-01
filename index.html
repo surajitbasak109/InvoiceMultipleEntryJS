@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0-11/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0-11/css/all.min.css">
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <title>Invoice Tutorial</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" style="color: rgb(124, 196, 255);">Invoice Tutorial</a>
+            <button class="navbar-toggler" data-target="#topNav" data-toggle="collapse" aria-controls="topNav"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div id="topNav" class="collapse navbar-collapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <form class="form-horizontal needs-validation" action="addinvoice.php" method="POST" novalidate>
+            <div class="form-row">
+                <div class="entry-primary col-12">
+                    <div class="row">
+                        <div class="form-group col-md-3">
+                            <label for="customer_name" class="control-label">Customer Name</label>
+                            <input id="customer_name" class="form-control col-sm-12" type="text" name="customer_name"
+                                required>
+                            <div class="invalid-feedback">Customer name is required</div>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="mobile_no" class="control-label">Mobile No</label>
+                            <input id="mobile_no" class="form-control col-sm-12" type="text" name="mobile_no" required>
+                            <div class="invalid-feedback">Mobile no is required</div>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="bill_no" class="control-label">Bill No</label>
+                            <input id="bill_no" class="form-control" type="text" name="bill_no" required>
+                            <div class="invalid-feedback">Bill no is required</div>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="bill_date" class="control-label">Bill Date</label>
+                            <input id="bill_date" class="form-control" type="date" name="bill_date" required>
+                            <div class="invalid-feedback">Bill date is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="entry-secondary col-12 mt-4 mb-4">
+                    <div class="table-responsive">
+                        <table id="itemTable" class="table table-hover table-bordered responsive-table-mobile">
+                            <thead>
+                                <tr>
+                                    <td>
+                                        <input id="check_all" class="form-control" type="checkbox" />
+                                    </td>
+                                    <th>Item Name</th>
+                                    <th>Item Code</th>
+                                    <th>Rate</th>
+                                    <th>Quantity</th>
+                                    <th>Discount</th>
+                                    <th>Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td data-title="Check">
+                                        <input class="case" class="form-control" type="checkbox" />
+                                    </td>
+
+                                    <td data-title="Item Name">
+                                        <input class="form-control" type="text" name="data[1][item_name]"
+                                            id="item_name_1" required>
+                                        <div class="invalid-feedback small">Item name is required</div>
+                                    </td>
+                                    <td data-title="Item Code">
+                                        <input class="form-control" type="text" name="data[1][item_code]"
+                                            id="item_code_1" required>
+                                        <div class="invalid-feedback small">Item code is required</div>
+                                    </td>
+                                    <td data-title="Rate">
+                                        <input class="form-control" type="text" name="data[1][rate]" id="rate_1"
+                                            required>
+                                        <div class="invalid-feedback small">Rate is required</div>
+                                    </td>
+                                    <td data-title="Quantity">
+                                        <input class="form-control" type="text" name="data[1][qty]" id="qty_1" required>
+                                        <div class="invalid-feedback small">Quantity is required</div>
+                                    </td>
+                                    <td data-title="Discount">
+                                        <input class="form-control" type="text" name="data[1][discount]"
+                                            id="discount_1">
+                                    </td>
+                                    <td data-title="Amount">
+                                        <input class="form-control" type="text" name="data[1][amount]" id="amount_1"
+                                            required readonly>
+                                        <div class="invalid-feedback small">Amount is required</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="btn-action">
+                        <button class="btn btn-info btn-sm" id="btnRowAdd" type="button">
+                            <div class="fa fa-plus"></div> Add
+                        </button>
+                        <button class="btn btn-danger btn-sm" id="btnRowDelete" type="button">
+                            <div class="fa fa-trash"></div> Delete
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary" type="submit">Submit form</button>
+        </form>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="assets/js/script.js"></script>
+</body>
+
+</html>
